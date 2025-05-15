@@ -9,7 +9,15 @@ services:
       POSTGRES_PASSWORD: pass
       POSTGRES_DB: video-vector
     volumes:
-      - pgvector-data:/var/lib/postgresql/data
+      - ${VECTOR_DATA_LOCATION}:/var/lib/postgresql/data
 
-volumes:
-  pgvector-data:
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    container_name: pgadmin
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@gmail.com
+      PGADMIN_DEFAULT_PASSWORD: pass
+    ports:
+      - "8383:80"
+    depends_on:
+      - postgres
