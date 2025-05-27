@@ -1,6 +1,4 @@
 server:
-  servlet:
-    context-path: /api
   port: 8181
 spring:
   application:
@@ -43,3 +41,4 @@ logging:
   level:
     org.springframework.web.client: DEBUG
     org.springframework.ai: DEBUG
+    org.flywaydb: DEBUG

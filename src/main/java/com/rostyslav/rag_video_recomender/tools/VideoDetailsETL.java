@@ -26,6 +26,7 @@ public class VideoDetailsETL {
     DBCollection collection = mongoDb.getCollection("vod");
     DBCursor cursor = collection.find();
     List<Document> documents = new ArrayList<>();
+
     while (cursor.hasNext()) {
       DBObject doc = cursor.next();
       String name = doc.get("name") != null ? doc.get("name").toString() : "";
