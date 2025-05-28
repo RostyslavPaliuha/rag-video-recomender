@@ -1,4 +1,18 @@
 services:
+  ollama:
+    image: ollama/ollama
+    container_name: ollama
+    ports:
+      - "11434:11434"
+    volumes:
+      - ${OLLAMA_DATA_LOCATION}:/root/.ollama
+    restart: unless-stopped
+    entrypoint: /bin/sh -c "
+      ollama pull mistral &&  
+      ollama run mistral &    
+      /bin/ollama serve       
+      "
+
   postgres:
     image: ankane/pgvector
     container_name: pgvector-db

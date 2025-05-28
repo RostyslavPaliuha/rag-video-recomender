@@ -5,7 +5,7 @@ spring:
     name: rag-video-recomender
 
   datasource:
-    url: jdbc:postgresql://localhost:5432/video-vector
+    url: jdbc:postgresql://pgvector-db:5432/video-vector
     username: user
     password: pass
     driver-class-name: org.postgresql.Driver
@@ -23,22 +23,18 @@ spring:
 
   ai:
     ollama:
-        base-url: http://localhost:11434
+        base-url: http://ollama:11434
         options:
           model: mistral
         embedding:
-          model: nomic-embed-text
+          model: mistral
     vectorstore:
       pgvector:
-        url: jdbc:postgresql://localhost:5432/video-vector
+        url: jdbc:postgresql://pgvector-db:5432/video-vector
         username: user
         password: pass
         initialize-schema: off
-        dimensions: 768
-        table-name: content_vectors
-        index-type: hnsw
-
-
+        dimensions: 2000
 
 springdoc:
   swagger-ui:

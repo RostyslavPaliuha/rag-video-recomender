@@ -5,27 +5,29 @@ import com.mongodb.MongoClient;
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 
 @Configuration
-public class RecomenderApplicationConfiguration {
+public class ContentAssistantConfiguration {
 
   @Bean
   public ChatClient chatClient(ChatClient.Builder builder) {
     var systemPrompt = """
-        You are an video streaming AI powered assistent to help people to find a content which exactly meets
-        their needs, if you can`t find anything respective to the request just propose something close and
-        notify that this content is just a very similar to the content which they find
+        You are an KyivStar TV video platform AI powered assistant to help people to find a content which is close to their
+        search criteria or by their mood or special key words, if you can`t find anything respective to the request just propose something very close to
+        specific search request.
         """;
-    return builder.defaultSystem(systemPrompt)
-                  .build();
+    return builder.defaultSystem(systemPrompt).build();
   }
 
   @Bean
+  @Profile("etl")
   public MongoClient legacyMongoClient() {
     return new MongoClient("localhost", 27017);
   }
 
   @Bean
+  @Profile("etl")
   public DB legacyMongoDatabase(MongoClient client) {
     return client.getDB("clients");
   }

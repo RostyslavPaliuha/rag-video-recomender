@@ -17,13 +17,6 @@ public class RagVideoRecomenderApplication {
     SpringApplication.run(RagVideoRecomenderApplication.class, args);
   }
 
-  @Profile("test")
-  @Bean
-  public ApplicationRunner testPrompt(ChatClient chatClient) {
-    return args -> log.info(chatClient.prompt("It is just Testing prompt! I test ollama spring ai integration!")
-                                      .call().chatResponse().getResult().getOutput().getText());
-  }
-
   @Bean
   @Profile("etl")
   public ApplicationRunner extractVideoDataToVectorStorage(VideoDetailsETL videoDetailsETL) {
